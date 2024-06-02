@@ -1,10 +1,10 @@
-FROM python:3.11.0-bullseye
+FROM nimlang/nim:2.0.4-ubuntu
 
-RUN apt -y update && apt upgrade -qqy && apt -y install \
-    curl \
-    gcc \
-    git \
-    fish
-
-RUN chsh -s /usr/bin/fish
-RUN pip install -U pip && pip install poetry
+ARG USERNAME=dev
+RUN useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME\
+    && apt update \
+    && apt upgrade -qqy \
+    && apt install -y curl fish sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && chsh -s /usr/bin/fish
