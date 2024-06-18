@@ -2,15 +2,22 @@
     "name": "dev",
     "dockerFile": "Dockerfile",
     "postCreateCommand": "/usr/bin/fish ./.devcontainer/postCreateCommands.fish",
-    "remoteUser": "dev",
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-azuretools.vscode-docker",
-                "nimsaem.nimvscode"
+                "ms-python.python",
+                "ms-python.vscode-pylance"
             ],
             "settings": {
-                "terminal.integrated.defaultProfile.linux": "fish"
+                "python.linting.flake8Enabled": true,
+                "python.formatting.provider": "black",
+                "[python]": {
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": true
+                    }
+                }
             }
         }
     }

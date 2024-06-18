@@ -1,2 +1,3 @@
 #!/usr/bin/fish
-echo 'set PATH $PATH $HOME/.nimble/bin' >> $HOME/.config/fish/config.fish
+poetry config virtualenvs.in-project true
+poetry install
