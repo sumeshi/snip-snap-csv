@@ -1,7 +1,7 @@
 {
     "name": "dev",
     "dockerFile": "Dockerfile",
-    "postCreateCommand": "/bin/sh ./.devcontainer/postCreateCommands.fish",
+    "postCreateCommand": "/usr/bin/fish ./.devcontainer/postCreateCommands.fish",
     "remoteUser": "dev",
     "customizations": {
         "vscode": {
@@ -10,6 +10,7 @@
                 "nimsaem.nimvscode"
             ],
             "settings": {
+                "terminal.integrated.defaultProfile.linux": "fish"
             }
         }
     }
