@@ -1,5 +1,6 @@
 import fire
 from sscsv.controllers.CsvFile import load_csv
+from sscsv.views.TableView import TableView
 
 def head(filename: str, number: int = 5) -> None:
     df = load_csv(filename)
@@ -16,7 +17,10 @@ def headers(filename: str, plain: bool = False) -> None:
     if plain:
         print(",".join([f"\"{c}\"" for c in df.columns]))
     else:
-        print("\n".join([f"{str(i).zfill(2)}: {c}" for i, c in enumerate(df.columns)]))
+        TableView.print(
+            headers=["#", "Column Name"],
+            values=[[str(i).zfill(2), c] for i, c in enumerate(df.columns)]
+        )
 
 
 def select(filename: str, columns: str) -> None:
