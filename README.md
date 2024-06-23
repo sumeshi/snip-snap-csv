@@ -1,6 +1,12 @@
 # snip-snap-csv
 A tool designed for rapid data processing and filtering.
 
+## Archtecture
+```
+EntryPoint -> Commands -> Controllers -> Models
+                |-> Views
+```
+
 ## Planned Features:
 - CSV cache (.pkl)
 - Extraction of specific columns

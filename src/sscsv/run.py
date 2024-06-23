@@ -1,4 +1,5 @@
-from sscsv.views.CommandLine import entry_point
+import fire
+import sscsv.commands
 
 if __name__ == '__main__':
-    entry_point()
+    fire.Fire(sscsv.commands)
