@@ -1,7 +1,17 @@
 import fire
 from sscsv.controllers.CsvFile import load_csv
 
-def headers(filename: str, plain=False) -> None:
+def head(filename: str, number: int = 5) -> None:
+    df = load_csv(filename)
+    print(df.head(number))
+
+
+def tail(filename: str, number: int = 5) -> None:
+    df = load_csv(filename)
+    print(df.tail(number))
+
+
+def headers(filename: str, plain: bool = False) -> None:
     df = load_csv(filename)
     if plain:
         print(",".join([f"\"{c}\"" for c in df.columns]))
@@ -36,6 +46,8 @@ def select(filename: str, columns: str) -> None:
 
 def entry_point():
     fire.Fire({
+        "head": head,
+        "tail": tail,
         "headers": headers,
         "select": select,
     })
