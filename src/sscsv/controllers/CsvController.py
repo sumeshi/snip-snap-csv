@@ -9,6 +9,7 @@ class CsvController(object):
         df = pl.scan_csv(
         # df = pl.read_csv(
             self.path,
+            try_parse_dates=True,
             rechunk=True,
             truncate_ragged_lines=True,
         )

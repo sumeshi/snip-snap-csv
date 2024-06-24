@@ -62,7 +62,18 @@ class DataFrameController(object):
         self.df = self.df.sort(columns, descending=desc)
         return self
     
+    def changetz(self, colname: str, timezone_from: str = "UTC", timezone_to: str = "Asia/Tokyo", new_colname: str = None):
+        new_colname = new_colname if new_colname else colname
+        self.df.with_columns(pl.col(colname).dt.replace_time_zone(timezone_from))
+        self.df = self.df.with_columns(
+            pl.col(colname).cast(pl.Datetime).dt.convert_time_zone(timezone_to).alias(new_colname)
+        )
+        return self
+    
     # finalize methods
+    def showquery(self):
+        print(self.df)
+
     def show(self):
         self.df.collect().write_csv(sys.stdout)
     
