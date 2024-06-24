@@ -6,7 +6,8 @@ class CsvController(object):
         self.path: Path = path
 
     def get_dataframe(self) -> pl.DataFrame:
-        df = pl.read_csv(
+        df = pl.scan_csv(
+        # df = pl.read_csv(
             self.path,
             rechunk=True,
             truncate_ragged_lines=True,

@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 from sscsv.controllers.CsvController import CsvController
 from sscsv.views.TableView import TableView
@@ -7,10 +8,12 @@ class DataFrameController(object):
     def __init__(self):
         self.df = None
     
+    # initialize methods
     def load(self, path):
         self.df = CsvController(path=path).get_dataframe()
         return self
 
+    # chainable methods
     def headers(self, plain: bool = False) -> None:
         if plain:
             print(",".join([f"\"{c}\"" for c in self.df.columns]))
@@ -42,6 +45,10 @@ class DataFrameController(object):
         selected_columns = parse_columns(headers=self.df.columns, columns=columns)
         self.df = self.df.select(selected_columns)
         return self
+    
+    def search(self, query: str):
+
+        return self
 
     def head(self, number: int = 5):
         self.df = self.df.head(number)
@@ -55,9 +62,13 @@ class DataFrameController(object):
         self.df = self.df.sort(columns, descending=desc)
         return self
     
+    # finalize methods
     def show(self):
-        print(self.df)
+        self.df.collect().write_csv(sys.stdout)
+    
+    def dump(self, path: str):
+        self.df.collect().write_csv(path)
     
     def __str__(self):
-        print(self.df)
+        print(self.df.collect())
         return ''
