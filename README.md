@@ -3,9 +3,25 @@ A tool designed for rapid data processing and filtering.
 
 ## Archtecture
 ```
-EntryPoint -> Commands -> Controllers -> Models
-                |-> Views
+initialize method -> chainable methods... -> finalize mthod
 ```
+
+### initialize methods
+- load
+
+### chainable methods
+- select
+- search
+- head
+- tail
+- sort
+- changetz
+
+### finalize methods
+- headers
+- showquery
+- show
+- dump
 
 ## Planned Features:
 - CSV cache (.pkl)

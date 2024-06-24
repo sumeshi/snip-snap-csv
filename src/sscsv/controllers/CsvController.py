@@ -7,7 +7,6 @@ class CsvController(object):
 
     def get_dataframe(self) -> pl.DataFrame:
         df = pl.scan_csv(
-        # df = pl.read_csv(
             self.path,
             try_parse_dates=True,
             rechunk=True,

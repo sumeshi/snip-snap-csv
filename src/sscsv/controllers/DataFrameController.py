@@ -14,15 +14,6 @@ class DataFrameController(object):
         return self
 
     # chainable methods
-    def headers(self, plain: bool = False) -> None:
-        if plain:
-            print(",".join([f"\"{c}\"" for c in self.df.columns]))
-        else:
-            TableView.print(
-                headers=["#", "Column Name"],
-                values=[[str(i).zfill(2), c] for i, c in enumerate(self.df.columns)]
-            )
-
     def select(self, columns: str) -> None:
         def parse_columns(headers: list[str], columns: tuple[str]):
             if type(columns) is tuple:
@@ -71,6 +62,15 @@ class DataFrameController(object):
         return self
     
     # finalize methods
+    def headers(self, plain: bool = False) -> None:
+        if plain:
+            print(",".join([f"\"{c}\"" for c in self.df.columns]))
+        else:
+            TableView.print(
+                headers=["#", "Column Name"],
+                values=[[str(i).zfill(2), c] for i, c in enumerate(self.df.columns)]
+            )
+
     def showquery(self):
         print(self.df)
 
