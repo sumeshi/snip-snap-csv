@@ -62,7 +62,7 @@ class DataFrameController(object):
         return self
     
     # finalize methods
-    def headers(self, plain: bool = False) -> None:
+    def headers(self, plain: bool = False):
         if plain:
             print(",".join([f"\"{c}\"" for c in self.df.columns]))
         else:
@@ -70,6 +70,9 @@ class DataFrameController(object):
                 headers=["#", "Column Name"],
                 values=[[str(i).zfill(2), c] for i, c in enumerate(self.df.columns)]
             )
+    
+    def stat(self):
+        print(self.df.describe())       
 
     def showquery(self):
         print(self.df)
