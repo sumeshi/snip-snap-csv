@@ -37,8 +37,12 @@ class DataFrameController(object):
         self.df = self.df.select(selected_columns)
         return self
     
-    def search(self, query: str):
-
+    def isin(self, colname: str, values: list):
+        self.df = self.df.filter(pl.col(colname).is_in(values))
+        return self
+    
+    def contains(self, colname: str, regex: str):
+        self.df = self.df.filter(pl.col(colname).str.contains(regex))
         return self
 
     def head(self, number: int = 5):
