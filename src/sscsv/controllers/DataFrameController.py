@@ -1,4 +1,6 @@
+import re
 import sys
+from datetime import datetime
 from pathlib import Path
 from sscsv.controllers.CsvController import CsvController
 from sscsv.views.TableView import TableView
@@ -42,6 +44,7 @@ class DataFrameController(object):
         return self
     
     def contains(self, colname: str, regex: str):
+        regex = regex if type(regex) is str else str(regex)
         self.df = self.df.filter(pl.col(colname).str.contains(regex))
         return self
 
@@ -84,7 +87,18 @@ class DataFrameController(object):
     def show(self):
         self.df.collect().write_csv(sys.stdout)
     
-    def dump(self, path: str):
+    def dump(self, path: str = None):
+        def autoname():
+            now = datetime.now().strftime('%Y%m%d-%H%M%S')
+            query = self.df.explain(optimized=False).splitlines()[0]
+            temp = re.sub(r'[^\w\s]', '-', query)
+            temp = re.sub(r'-+', '-', temp)
+            temp = temp.strip('-')
+            temp = temp.replace(' ', '')
+            temp = temp.lower()
+            return f"{now}_{temp}.csv"
+
+        path = path if path else autoname()
         self.df.collect().write_csv(path)
     
     def __str__(self):
