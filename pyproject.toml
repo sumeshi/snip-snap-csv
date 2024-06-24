@@ -1,10 +1,13 @@
 [tool.poetry]
 name = "sscsv"
-version = "0.1.0"
+version = "0.0.1"
 description = "A tool designed for rapid data processing and filtering."
 authors = ["sumeshi <sum3sh1@protonmail.com>"]
 license = "MIT"
 readme = "README.md"
+
+[tool.poetry.scripts]
+sscsv = 'sscsv.run:main'
 
 [tool.poetry.dependencies]
 python = "^3.11"

@@ -1,5 +1,8 @@
 import fire
 from sscsv.controllers.DataFrameController import DataFrameController
 
-if __name__ == '__main__':
+def main():
     fire.Fire(DataFrameController)
+
+if __name__ == '__main__':
+    main()
