@@ -102,5 +102,6 @@ class DataFrameController(object):
         self.df.collect().write_csv(path)
     
     def __str__(self):
-        print(self.df.collect())
+        if self.df is not None:
+            print(self.df.collect())
         return ''
