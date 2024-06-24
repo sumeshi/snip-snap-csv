@@ -51,6 +51,10 @@ class DataFrameController(object):
         self.df = self.df.tail(number)
         return self
     
+    def sort(self, columns: str, desc: bool = False):
+        self.df = self.df.sort(columns, descending=desc)
+        return self
+    
     def show(self):
         print(self.df)
     
