@@ -4,7 +4,8 @@ RUN apt -y update && apt upgrade -qqy && apt -y install \
     curl \
     gcc \
     git \
-    fish
+    fish \
+    patchelf
 
 RUN chsh -s /usr/bin/fish
 
