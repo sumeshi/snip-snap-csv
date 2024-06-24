@@ -1,5 +1,5 @@
 import fire
-import sscsv.commands
+from sscsv.controllers.DataFrameController import DataFrameController
 
 if __name__ == '__main__':
-    fire.Fire(sscsv.commands)
+    fire.Fire(DataFrameController)
