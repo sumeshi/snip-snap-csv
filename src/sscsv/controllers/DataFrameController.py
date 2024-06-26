@@ -55,32 +55,38 @@ class DataFrameController(object):
     
     def isin(self, colname: str, values: list):
         """[chainable] Displays rows that contain the specified values."""
+        logger.debug(f"filter condition: {values} in {colname}")
         self.df = self.df.filter(pl.col(colname).is_in(values))
         return self
     
     def contains(self, colname: str, regex: str):
         """[chainable] Displays rows that contain the specified string."""
+        logger.debug(f"filter condition: {regex} contains {colname}")
         regex = regex if type(regex) is str else str(regex)
         self.df = self.df.filter(pl.col(colname).str.contains(regex))
         return self
 
     def head(self, number: int = 5):
         """[chainable] Displays the first specified number of rows of the data."""
+        logger.debug(f"heading {number} lines.")
         self.df = self.df.head(number)
         return self
 
     def tail(self, number: int = 5):
         """[chainable] Displays the last specified number of rows of the data."""
+        logger.debug(f"tailing {number} lines.")
         self.df = self.df.tail(number)
         return self
     
     def sort(self, columns: str, desc: bool = False):
         """[chainable] Sorts the data by the values of the specified column."""
+        logger.debug(f"sort by {columns} ({'desc' if desc else 'asc'}).")
         self.df = self.df.sort(columns, descending=desc)
         return self
     
     def changetz(self, colname: str, timezone_from: str = "UTC", timezone_to: str = "Asia/Tokyo", new_colname: str = None):
         """[chainable] Changes the timezone of the specified date column."""
+        logger.debug(f"change {colname} timezone {timezone_from} to {timezone_to}.")
         new_colname = new_colname if new_colname else colname
         self.df.with_columns(pl.col(colname).dt.replace_time_zone(timezone_from))
         self.df = self.df.with_columns(
@@ -125,8 +131,9 @@ class DataFrameController(object):
 
         path = path if path else autoname()
         self.df.collect().write_csv(path)
+        logger.info(f"csv dump successfully: {path}")
     
-    def __str__(self):
-        if self.df is not None:
-            print(self.df.collect())
-        return ''
+    # def __str__(self):
+    #     if self.df is not None:
+    #         print(self.df.collect())
+    #     return ''
