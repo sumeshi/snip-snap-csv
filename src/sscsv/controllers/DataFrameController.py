@@ -2,6 +2,7 @@ import re
 import sys
 import logging
 from datetime import datetime
+from typing import Union
 
 from sscsv.controllers.CsvController import CsvController
 from sscsv.views.TableView import TableView
@@ -24,18 +25,18 @@ class DataFrameController(object):
         return self
 
     # -- chainable --
-    def select(self, columns: str) -> None:
+    def select(self, columns: Union[str, tuple[str]]):
         """[chainable] Displays the specified columns."""
-        def parse_columns(headers: list[str], columns: tuple[str]):
-            if type(columns) is tuple:
-                columns = ",".join(columns)
+        def parse_columns(headers: list[str], columns: Union[str, tuple[str]]):
+            # prevent type guessing
+            columns: tuple[str] = columns if type(columns) is tuple else (columns, )
+
             parsed_columns = list()
-            for term in columns.split(','):
-                if '-' not in term:
-                    parsed_columns.append(term)
-                else:
+            for col in columns:
+                if '-' in col:
+                    # parse 'startcol-endcol' string
                     flag_extract = False
-                    start, end = term.split('-')
+                    start, end = col.split('-')
                     for h in headers:
                         if h == start:
                             flag_extract = True
@@ -43,8 +44,12 @@ class DataFrameController(object):
                             parsed_columns.append(h)
                         if h == end:
                             flag_extract = False
+                else:
+                    parsed_columns.append(col)
             return parsed_columns
+        
         selected_columns = parse_columns(headers=self.df.columns, columns=columns)
+        logger.debug(f"{len(selected_columns)} columns are selected. {', '.join(selected_columns)}")
         self.df = self.df.select(selected_columns)
         return self
     
@@ -121,7 +126,7 @@ class DataFrameController(object):
         path = path if path else autoname()
         self.df.collect().write_csv(path)
     
-    # def __str__(self):
-    #     if self.df is not None:
-    #         print(self.df.collect())
-    #     return ''
+    def __str__(self):
+        if self.df is not None:
+            print(self.df.collect())
+        return ''
