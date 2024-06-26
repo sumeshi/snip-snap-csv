@@ -11,7 +11,8 @@ initialize method -> chainable methods... -> finalize mthod
 
 ### chainable methods
 - select
-- search
+- isin
+- contains
 - head
 - tail
 - sort
@@ -19,6 +20,7 @@ initialize method -> chainable methods... -> finalize mthod
 
 ### finalize methods
 - headers
+- stat
 - showquery
 - show
 - dump
