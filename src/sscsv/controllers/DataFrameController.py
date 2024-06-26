@@ -1,18 +1,25 @@
 import re
 import sys
+import logging
 from datetime import datetime
-from pathlib import Path
+
 from sscsv.controllers.CsvController import CsvController
 from sscsv.views.TableView import TableView
+
 import polars as pl
+
+
+logger = logging.getLogger(__name__)
+
 
 class DataFrameController(object):
     def __init__(self):
         self.df = None
     
     # -- initializer --
-    def load(self, path):
-        """[initializer] Loads the specified CSV file."""
+    def load(self, *path: str):
+        """[initializer] Loads the specified CSV files."""
+        logger.debug(f"{len(path)} files are loaded. {', '.join(path)}")
         self.df = CsvController(path=path).get_dataframe()
         return self
 
