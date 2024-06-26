@@ -5,7 +5,7 @@ from rich.table import Table
 class TableView(object):
     @staticmethod
     def print(headers: list[str], values: list[list[str]]):
-        table = Table(show_header=True, header_style="cyan")
+        table = Table(show_header=True)
 
         for header in headers:
             table.add_column(header)
