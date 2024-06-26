@@ -133,7 +133,7 @@ class DataFrameController(object):
         self.df.collect().write_csv(path)
         logger.info(f"csv dump successfully: {path}")
     
-    # def __str__(self):
-    #     if self.df is not None:
-    #         print(self.df.collect())
-    #     return ''
+    def __str__(self):
+        if self.df is not None:
+            print(self.df.collect())
+        return ''
