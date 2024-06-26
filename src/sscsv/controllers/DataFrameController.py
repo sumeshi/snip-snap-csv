@@ -10,13 +10,13 @@ class DataFrameController(object):
     def __init__(self):
         self.df = None
     
-    # initialize methods
+    # -- initializer --
     def load(self, path):
         """[initializer] Loads the specified CSV file."""
         self.df = CsvController(path=path).get_dataframe()
         return self
 
-    # chainable methods
+    # -- chainable --
     def select(self, columns: str) -> None:
         """[chainable] Displays the specified columns."""
         def parse_columns(headers: list[str], columns: tuple[str]):
@@ -76,7 +76,7 @@ class DataFrameController(object):
         )
         return self
     
-    # finalize methods
+    # -- finalizer --
     def headers(self, plain: bool = False):
         """[finalizer] Displays the column names of the data."""
         if plain:
