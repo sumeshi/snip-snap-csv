@@ -39,7 +39,7 @@ jobs:
       
       - name: create tag
         id: create_tag
-        if: startsWith(github.ref, 'refs/heads/master')
+        if: startsWith(github.ref, 'refs/heads/main')
         run: |
           version=$(cat pyproject.toml | grep version | head -1 | awk -F '"' '{print $2}')
           git tag "v$version"

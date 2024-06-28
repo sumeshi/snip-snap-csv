@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sscsv"
-version = "0.1.0"
+version = "0.1.1"
 description = "A tool designed for rapid data processing and filtering, specifically tailored for handling CSV files for log analysis."
 authors = ["sumeshi <sum3sh1@protonmail.com>"]
 license = "MIT"
